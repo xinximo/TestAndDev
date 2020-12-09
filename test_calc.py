@@ -17,19 +17,19 @@ class TestCalc:
         assert expect == self.calc.add(a, b)
 
     @pytest.mark.parametrize("a,b,expect", [
-        (5, 3, 2), (6, 2, 4), (300, 200, 100)
+        (5, 3, 2), (6, -2, 8), (300, 0, 300)
     ], ids=["int1", "minus1", "bigint1"])
     def test_sub(self, a, b, expect):
         assert expect == self.calc.sub(a, b)
 
     @pytest.mark.parametrize("a,b,expect", [
-        (5, 3, 15), (6, 2, 12), (300, 200, 60000)
+        (5, 3, 15), (-6, -2, 12), (300, 0, 0)
     ], ids=["int2", "minus2", "bigint2"])
     def test_mul(self, a, b, expect):
         assert expect == self.calc.mul(a, b)
 
     @pytest.mark.parametrize("a,b,expect", [
-        (6, 3, 2), (6, 2, 3), (300, 100, 3)
+        (6, 3, 2), (-6, -2, 3), (0, 100, 0)
     ], ids=["int3", "minus3", "bigint3"])
-    def test_chu(self, a, b, expect):
-        assert expect == self.calc.chu(a, b)
+    def test_div(self, a, b, expect):
+        assert expect == self.calc.div(a, b)
