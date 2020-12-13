@@ -1,6 +1,5 @@
 import pytest
 from pythoncode.calculator import Caculator
-import yaml
 
 
 @pytest.fixture(params=["***参数1***", "***参数2***"])
@@ -14,17 +13,18 @@ def myfixture(request):
 def start_calc():
     calc = Caculator()
     print("开始计算")
-    return calc
+    yield calc
+    print("结束计算")
 
 
 def pytest_collection_modifyitems(session, config, items):
-    print(type(items))  # items是一个列表
+    print(type(items))
     items.reverse()
     for item in items:
         item.name = item.name.encode('utf-8').decode('unicode-escape')
         item._nodeid = item.nodeid.encode('utf-8').decode('unicode-escape')
 
-    # if "add" in item._nodeid:
-    #     item.add_marker(pytest.mark.add)
-    # if "div" in item._nodeid:
-    #     item.add_marker(pytest.mark.div)
+        # if "add" in item._nodeid:
+        #     item.add_marker(pytest.mark.add)
+        # if "div" in item._nodeid:
+        #     item.add_marker(pytest.mark.div)
