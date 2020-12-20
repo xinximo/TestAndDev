@@ -46,13 +46,13 @@ class BasePage:
         if value is None:
             return self.driver.find_element(*by)
         else:
-            return self.driver.find_element(By=by, value=value)
+            return self.driver.find_element(by=by, value=value)
 
     def finds(self, by, value):
         if value is None:
             return self.driver.find_elements(*by)
         else:
-            return self.driver.find_elements(By=by, value=value)
+            return self.driver.find_elements(by=by, value=value)
 
     def wait_click(self, locator):
         return WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
