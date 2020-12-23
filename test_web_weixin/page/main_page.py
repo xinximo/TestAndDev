@@ -7,11 +7,11 @@ from test_web_weixin.page.contact_page import ContactPage
 
 
 class MainPage(BasePage):
-    _location_goto_member = (By.XPATH, '//*[@class="index_service_cnt js_service_list"]/a[1]//span[1]')
-
+    _location_goto_member = (By.CSS_SELECTOR, '.ww_indexImg_AddMember')
     def goto_add_member(self):
         # 跳转添加成员
         # 解元祖操作
+        self.wait_click(self._location_goto_member)
         self.find(self._location_goto_member).click()
         return AddMember(self.driver)
 
@@ -21,5 +21,5 @@ class MainPage(BasePage):
         return ContactPage(self.driver)
 
     def back_main(self):
-        self.driver.find_element(By.ID, "menu_index").click()
+        self.find(By.ID, "menu_index").click()
         self.find(By.CSS_SELECTOR, "a[node-type='cancel'").click()

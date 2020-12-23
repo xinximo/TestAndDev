@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BasePage:
-    def __int__(self, base_driver=None):
+    def __init__(self, base_driver=None):
         # 注解，不是赋值操作。用作ide的类型提示
         base_driver: WebDriver
         if base_driver is None:
@@ -22,21 +22,30 @@ class BasePage:
             self.driver = base_driver
         self.driver.implicitly_wait(3)
 
-    """
+    @pytest.mark.skip
     def setup_class(self):
         opt = webdriver.ChromeOptions()
         opt.debugger_address = '127.0.0.1:9927'  # 设置debug地址 # chrome --remote-debugging-port=9927
         driver = webdriver.Chrome(options=opt)
         driver.implicitly_wait(5)
         driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
-        #driver.find_element_by_id("menu_contacts").click()
+        # driver.find_element_by_id("menu_contacts").click()
         cookie = driver.get_cookies()
         with open("wx_cookie.yml", "w", encoding="UTF-8") as f:
             yaml.dump(cookie, f)
-    """
+        self._test_login()
 
     def _test_login(self):
-        with open("data_cookie.yml", "r", encoding="UTF-8") as f:
+        opt = webdriver.ChromeOptions()
+        opt.debugger_address = '127.0.0.1:9927'  # 设置debug地址 # chrome --remote-debugging-port=9927
+        driver = webdriver.Chrome(options=opt)
+        driver.implicitly_wait(5)
+        driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
+        # driver.find_element_by_id("menu_contacts").click()
+        cookie = driver.get_cookies()
+        with open("wx_cookie.yml", "w", encoding="UTF-8") as f:
+            yaml.dump(cookie, f)
+        with open("wx_cookie.yml", "r", encoding="UTF-8") as f:
             yaml_data = yaml.safe_load(f)
         for cookie in yaml_data:
             self.driver.add_cookie(cookie)
@@ -48,7 +57,7 @@ class BasePage:
         else:
             return self.driver.find_element(by=by, value=value)
 
-    def finds(self, by, value):
+    def finds(self, by, value=None):
         if value is None:
             return self.driver.find_elements(*by)
         else:

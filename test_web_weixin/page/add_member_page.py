@@ -14,11 +14,11 @@ class AddMember(BasePage):
     _location_Add_phone = (By.ID, "memberAdd_phone")
     _location_sava = (By.CSS_SELECTOR, '[class="js_member_editor_form"]>div:nth-child(3)>a:nth-child(2)')
 
-    def add_member(self):
+    def add_member(self, username, acctid, phone):
         # 添加成员
-        self.find(self._location_username).send_keys("wx")
-        self.find(self._location_acctid).send_keys("001")
-        self.find(self._location_Add_phone).send_keys("13011112222")
+        self.find(self._location_username).send_keys(username)
+        self.find(self._location_acctid).send_keys(acctid)
+        self.find(self._location_Add_phone).send_keys(phone)
         self.find(self._location_sava).click()
         return ContactPage(self.driver)
 
