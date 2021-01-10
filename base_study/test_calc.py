@@ -15,7 +15,7 @@ def get_data(path, key):
         # return [add_datas, sub_datas, mul_datas, div_datas, all_ids]
 
 class TestCalc:
-    path = "./calc_data.yml"
+    path = "calc_data.yml"
 
     @pytest.mark.run(order=1)
     @pytest.mark.parametrize("a,b,expect", get_data(path, "adddatas"), ids=get_data(path, "myid"))

@@ -19,7 +19,7 @@ import yaml
 class TestDemo:
     @allure.severity(allure.severity_level.NORMAL)  # pytest test_demo.py --allure-severities="normal"
     @allure.story("环境区分")
-    @pytest.mark.parametrize("env", yaml.safe_load(open("./env.yml")))
+    @pytest.mark.parametrize("env", yaml.safe_load(open("env.yml")))
     def test_yaml(self, env):
         if "test" in env:
             print("测试环境为:", env["test"])
@@ -30,7 +30,7 @@ class TestDemo:
     @allure.story("展示路径")
     def test_show(self):
         with allure.step("步骤1:输出路径"):
-            print(yaml.safe_load(open("./env.yml")))
+            print(yaml.safe_load(open("env.yml")))
         with allure.step("步骤2:输出文字"):
             assert 1 + 2 == 3
             print("这是一条文字测试用例")

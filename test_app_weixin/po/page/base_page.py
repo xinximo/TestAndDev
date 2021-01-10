@@ -1,14 +1,23 @@
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.webdriver import WebDriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+
+from test_app_weixin.po.page.black_handle import black_wrapper
 
 
 class BasePage:
     def __init__(self, driver: WebDriver = None):
         self.driver = driver
+        # 参考:黑名单类
+        self.black_list = [(By.XPATH, "")]
 
+    @black_wrapper
     def find(self, by, locator):
         return self.driver.find_element(by, locator)
+
+    def finds(self, by, locator):
+        return self.driver.find_elements(by, locator)
 
     def find_and_click(self, by, locator):
         self.find(by, locator).click()

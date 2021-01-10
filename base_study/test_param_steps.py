@@ -26,4 +26,4 @@ def steps(path):
 
 
 def test_foo():
-    steps("./steps.yml")
+    steps("steps.yml")
